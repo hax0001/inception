@@ -1,0 +1,41 @@
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    restart: unless-stopped
+    networks:
+      - inception
+    volumes:
+      - /home/nait-bou/data/wordpress:/var/www/html
+    depends_on:
+      - wordpress
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    restart: unless-stopped
+    networks:
+      - inception
+    volumes:
+      - /home/nait-bou/data/wordpress:/var/www/html
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    restart: unless-stopped
+    networks:
+      - inception
+    volumes:
+      - /home/nait-bou/data/mariadb:/var/lib/mysql
+    env_file:
+      - .env
+
+networks:
+  inception:
+    driver: bridge

@@ -1,0 +1,20 @@
+[server]
+
+[mysqld]
+# 1. User and Process Info
+user                    = mysql
+pid-file                = /run/mysqld/mysqld.pid
+socket                  = /run/mysqld/mysqld.sock
+
+# 2. Network Settings (CRITICAL FOR DOCKER)
+port                    = 3306
+bind-address            = 0.0.0.0
+
+# 3. Data Storage Directories
+basedir                 = /usr
+datadir                 = /var/lib/mysql
+tmpdir                  = /tmp
+lc-messages-dir         = /usr/share/mysql
+
+# 4. Error Logs (Helpful for debugging)
+log_error               = /var/log/mysql/error.log
