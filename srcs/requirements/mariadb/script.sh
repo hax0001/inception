@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# 1. Install the database if it doesn't exist
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     
     echo "Initializing MariaDB data directory..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
 
-    # 2. CREATE THE SQL FILE TEMPORARILY
+
     cat << EOF > /tmp/init_db.sql
 USE mysql;
 FLUSH PRIVILEGES;
@@ -30,14 +30,14 @@ GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO \`${MYSQL_USER}\`@'%';
 FLUSH PRIVILEGES;
 EOF
 
-    # 3. RUN IN BOOTSTRAP MODE
+
     echo "Running Bootstrap..."
     mysqld --user=mysql --bootstrap < /tmp/init_db.sql
 
-    # Clean up
+
     rm -f /tmp/init_db.sql
     echo "Database initialized and Secured."
 fi
 
-# 4. START THE SERVER
+
 exec mysqld_safe --datadir=/var/lib/mysql

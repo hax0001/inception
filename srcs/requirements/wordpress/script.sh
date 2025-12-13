@@ -12,7 +12,7 @@ if [ ! -f wp-config.php ]; then
 
     ./wp-cli.phar core download --allow-root
 
-    # USE VARIABLES HERE ($MYSQL_DATABASE, etc)
+
     ./wp-cli.phar config create \
         --dbname=$MYSQL_DATABASE \
         --dbuser=$MYSQL_USER \
@@ -20,7 +20,7 @@ if [ ! -f wp-config.php ]; then
         --dbhost=mariadb \
         --allow-root
 
-    # USE VARIABLES HERE ($WP_ADMIN_USER, etc)
+
     ./wp-cli.phar core install \
         --url=https://$DOMAIN_NAME \
         --title=Inception \
@@ -29,7 +29,7 @@ if [ ! -f wp-config.php ]; then
         --admin_email=$WP_ADMIN_EMAIL \
         --allow-root
 
-    # USE VARIABLES HERE
+
     ./wp-cli.phar user create \
         $WP_USER \
         $WP_USER_EMAIL \
